@@ -17,6 +17,7 @@ import com.rayapplica.androrestapidemo.model.Data;
 import com.rayapplica.androrestapidemo.model.User;
 import com.rayapplica.androrestapidemo.network.RetrofitClient;
 import com.rayapplica.androrestapidemo.network.UserDataService;
+import com.rayapplica.androrestapidemo.util.InternetChecker;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,8 +47,13 @@ public class MainActivity extends AppCompatActivity {
         //create singleton instance of Retrofit Client and service
         service = RetrofitClient.getRetrofitInstance().create(UserDataService.class);
 
-        //get user data and populate every time when the app launches
-        getUserData();
+        if(InternetChecker.isInternetAvailable(getApplicationContext())){
+            //get user data and populate every time when the app launches
+            getUserData();
+        }else{
+            Toast.makeText(MainActivity.this, "No internet connection!", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     //method for getting user data from the REST API
