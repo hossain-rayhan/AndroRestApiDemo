@@ -8,11 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.rayapplica.androrestapidemo.model.Data;
+import com.rayapplica.androrestapidemo.model.PostUser;
 import com.rayapplica.androrestapidemo.model.User;
 import com.rayapplica.androrestapidemo.network.RetrofitClient;
 import com.rayapplica.androrestapidemo.network.UserDataService;
@@ -46,13 +45,15 @@ public class MainActivity extends AppCompatActivity {
 
         service = RetrofitClient.getRetrofitInstance().create(UserDataService.class);
         getUserData();
+        //postUserData(new PostUser("Neporia","Jobless"));
     }
 
+    //method for getting user data from the REST API
     private void getUserData(){
         progressDialog = new ProgressDialog(MainActivity.this);
         progressDialog.setMessage("...Loading...");
         progressDialog.show();
-        
+
         Call<Data> call = service.getData();
         call.enqueue(new Callback<Data>() {
             @Override
@@ -70,30 +71,27 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //extract and populate user data from http response
     private void generateDataList(Data data){
         for (User user : data.getUserList()){
             Log.e("User", user.getFirstName());
         }
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    //method for posting a user to the server using REST api
+    private void postUserData(PostUser postUser){
+        Call<PostUser> postUserCall = service.savePost(postUser);
+        postUserCall.enqueue(new Callback<PostUser>() {
+            @Override
+            public void onResponse(Call<PostUser> call, Response<PostUser> response) {
+                PostUser user = response.body();
+                Log.e("Post Successful", user.getName() + " - " + user.getJob());
+            }
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+            @Override
+            public void onFailure(Call<PostUser> call, Throwable t) {
+                Log.e("Post Request Error", t.getMessage());
+            }
+        });
     }
 }
