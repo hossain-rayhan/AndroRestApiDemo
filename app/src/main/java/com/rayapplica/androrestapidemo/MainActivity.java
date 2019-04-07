@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.rayapplica.androrestapidemo.adapter.UserRVAdapter;
 import com.rayapplica.androrestapidemo.model.Data;
 import com.rayapplica.androrestapidemo.model.PostUser;
 import com.rayapplica.androrestapidemo.model.User;
@@ -21,7 +24,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-
+    private UserRVAdapter adapter;
+    private RecyclerView recyclerView;
     ProgressDialog progressDialog;
     UserDataService service;
 
@@ -76,6 +80,11 @@ public class MainActivity extends AppCompatActivity {
         for (User user : data.getUserList()){
             Log.e("User", user.getFirstName());
         }
+        recyclerView = findViewById(R.id.customRecyclerView);
+        adapter = new UserRVAdapter(this, data.getUserList());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
     }
 
     //method for posting a user to the server using REST api
