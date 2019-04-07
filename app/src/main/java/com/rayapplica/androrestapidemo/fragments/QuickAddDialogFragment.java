@@ -54,8 +54,8 @@ public class QuickAddDialogFragment extends DialogFragment {
                     toast.show();
                 } else {
                     postUserData(new PostUser(etName.getText().toString(), etJob.getText().toString()));
-                    quickAddDialog.dismiss();
                     Toast toast = Toast.makeText(getActivity().getApplicationContext(), "User added successfully!!!", Toast.LENGTH_LONG);
+                    quickAddDialog.dismiss();
                 }
             }
         });

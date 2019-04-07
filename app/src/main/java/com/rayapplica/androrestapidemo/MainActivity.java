@@ -48,8 +48,6 @@ public class MainActivity extends AppCompatActivity {
 
         //get user data and populate every time when the app launches
         getUserData();
-
-        //postUserData(new PostUser("Neporia","Jobless"));
     }
 
     //method for getting user data from the REST API
