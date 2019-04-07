@@ -36,7 +36,9 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/rayapplica/androrestapidemo/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state />
+            <state relative-caret-position="180">
+              <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+            </state>
           </provider>
         </entry>
       </file>
@@ -2309,8 +2311,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1080" />
-    <option name="y" value="36" />
+    <option name="x" value="1276" />
+    <option name="y" value="49" />
     <option name="width" value="1455" />
     <option name="height" value="1336" />
   </component>
@@ -2501,6 +2503,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1080" y="36" width="1455" height="1336" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Android Profiler" />
@@ -2548,7 +2551,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/rayapplica/androrestapidemo/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state />
+        <state relative-caret-position="180">
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+        </state>
       </provider>
     </entry>
   </component>
