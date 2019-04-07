@@ -3,7 +3,6 @@ package com.rayapplica.androrestapidemo;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,8 +12,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.rayapplica.androrestapidemo.adapter.UserRVAdapter;
+import com.rayapplica.androrestapidemo.fragments.QuickAddDialogFragment;
 import com.rayapplica.androrestapidemo.model.Data;
-import com.rayapplica.androrestapidemo.model.PostUser;
 import com.rayapplica.androrestapidemo.model.User;
 import com.rayapplica.androrestapidemo.network.RetrofitClient;
 import com.rayapplica.androrestapidemo.network.UserDataService;
@@ -40,15 +39,16 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                new QuickAddDialogFragment().show(getFragmentManager(), "QuickAddDialog");
             }
         });
 
-
-
+        //create singleton instance of Retrofit Client and service
         service = RetrofitClient.getRetrofitInstance().create(UserDataService.class);
+
+        //get user data and populate every time when the app launches
         getUserData();
+
         //postUserData(new PostUser("Neporia","Jobless"));
     }
 
@@ -87,20 +87,4 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
-    //method for posting a user to the server using REST api
-    private void postUserData(PostUser postUser){
-        Call<PostUser> postUserCall = service.savePost(postUser);
-        postUserCall.enqueue(new Callback<PostUser>() {
-            @Override
-            public void onResponse(Call<PostUser> call, Response<PostUser> response) {
-                PostUser user = response.body();
-                Log.e("Post Successful", user.getName() + " - " + user.getJob());
-            }
-
-            @Override
-            public void onFailure(Call<PostUser> call, Throwable t) {
-                Log.e("Post Request Error", t.getMessage());
-            }
-        });
-    }
 }
